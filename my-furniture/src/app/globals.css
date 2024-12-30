@@ -70,3 +70,63 @@
     font-size: 3rem;
   }
 }
+
+@media (max-width: 1515px) {
+  .sortButton {
+    width: 250px;
+  }
+}
+
+@media (max-width: 1334px) {
+  .sortButton {
+    width: 200px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .reviewText {
+    height: 190px;
+  }
+}
+
+@media (min-width: 1330px) {
+  .reviewText {
+    height: 160px;
+  }
+}
+
+@media (min-width: 1458px) {
+  .reviewText {
+    height: 150px;
+  }
+}
+
+@media (min-width: 1621px) {
+  .reviewText {
+    height: 120px;
+  }
+}
+
+@media (max-width: 1173px) {
+  .sortButton {
+    width: 150px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .sortButton {
+    width: 300px;
+  }
+  .searchButton {
+    width: 300px;
+  }
+}
+
+@media (max-width: 430px) {
+  .sortButton {
+    width: 150px;
+  }
+  .searchButton {
+    width: 150px;
+  }
+}

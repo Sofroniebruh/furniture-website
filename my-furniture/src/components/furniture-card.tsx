@@ -15,7 +15,7 @@ export default function FurnitureCard({
     event?: string,
 }) {
     return (
-        <div className="bg-gray-100 w-[400px] p-8 flex flex-col gap-4 rounded-2xl mb-6">
+        <div className="bg-gray-100 w-[400px] min-w-[287px] p-8 flex flex-col gap-4 rounded-2xl mb-6">
             <div className="flex justify-between">
                 <div>
                     {
@@ -28,7 +28,7 @@ export default function FurnitureCard({
                                     null
                     }
                 </div>
-                <p>{itemsData.amountOfColors == 1 ? itemsData.amountOfColors.toString() + " color" :
+                <p className="font-medium text-sm">{itemsData.amountOfColors == 1 ? itemsData.amountOfColors.toString() + " color" :
                     itemsData.amountOfColors.toString() + " colors"}</p>
             </div>
             <div className="w-full flex justify-center">
@@ -38,7 +38,7 @@ export default function FurnitureCard({
             </div>
             <div className="flex justify-between">
                 <div>
-                    <p className="text-lg">{itemsData.name}</p>
+                    <p className="text-lg font-medium">{itemsData.name}</p>
                     <p className="font-semibold">${itemsData.price}</p>
                 </div>
                 <div className="rounded-full bg-white p-2 h-fit cursor-pointer">

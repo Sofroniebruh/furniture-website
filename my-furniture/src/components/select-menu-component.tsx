@@ -7,9 +7,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
     Command,
-    CommandEmpty,
     CommandGroup,
-    CommandInput,
     CommandItem,
     CommandList,
 } from "@/components/ui/command"
@@ -39,7 +37,7 @@ export default function SelectMenu({
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="w-[300px] justify-between text-lg"
+                    className="xl:min-w-[200px] w-[300px] flex sortButton justify-between text-lg"
                 >
                     {value
                         ? data.find((item) => item.value === value)?.label
@@ -47,7 +45,7 @@ export default function SelectMenu({
                     <ChevronsUpDown className="opacity-50" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="searchButton w-[200px] p-0">
                 <Command>
                     <CommandList>
                         <CommandGroup>
