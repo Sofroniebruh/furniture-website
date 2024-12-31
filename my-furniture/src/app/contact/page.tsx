@@ -2,7 +2,6 @@
 
 import Common from "@/components/common-properties";
 import { buttonVariants } from "@/components/ui/button";
-import { useState } from "react";
 import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
