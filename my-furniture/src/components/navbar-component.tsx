@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Common from "./common-properties";
-import { MenuIcon, ShoppingBagIcon, User2Icon } from "lucide-react";
+import { MenuIcon, User2Icon } from "lucide-react";
 import { buttonVariants } from "./ui/button";
 import {
     DropdownMenu,
@@ -10,9 +10,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import Cart from "./cart-component";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import Authentication from "./authentication-component";
 
 
-export default function Navbar() {
+export default async function Navbar() {
+    const { getUser } = getKindeServerSession()
+    const user = await getUser()
+    const isAdmin = user?.email === process.env.ADMIN_EMAIL;
+
     return (
         <nav className="z-50">
             <Common>
@@ -53,15 +60,11 @@ export default function Navbar() {
                         <h1 className="text-xl font-semibold">FUTU</h1>
                     </Link>
                     <ul className="flex gap-2 order-3">
-                        <Link href="/">
-                            <li className="w-5 h-5"><ShoppingBagIcon></ShoppingBagIcon></li>
-                        </Link>
-                        <Link href="/">
-                            <li className="w-5 h-5"><User2Icon></User2Icon></li>
-                        </Link>
+                        <Cart></Cart>
+                        <Authentication isAdmin={isAdmin} user={user}></Authentication>
                     </ul>
                 </div>
             </Common>
-        </nav>
+        </nav >
     )
 }

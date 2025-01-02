@@ -4,49 +4,7 @@ import Link from "next/link"
 import SelectMenu from "./select-menu-component"
 import { buttonVariants } from "./ui/button"
 import { Search, SearchIcon } from "lucide-react"
-
-const sortingOptionsMaterials = [
-    {
-        value: "wood",
-        label: "Wood",
-    },
-    {
-        value: "metal",
-        label: "Metal",
-    },
-    {
-        value: "mixed",
-        label: "Mixed",
-    },
-]
-const sortingOptionsType = [
-    {
-        value: "sofa",
-        label: "Sofa",
-    },
-    {
-        value: "chair",
-        label: "Chair",
-    },
-    {
-        value: "table",
-        label: "Table",
-    },
-]
-const sortingOptionsPrice = [
-    {
-        value: "0-70",
-        label: "$0 - $70",
-    },
-    {
-        value: "70-150",
-        label: "$70 - $150",
-    },
-    {
-        value: "150+",
-        label: "> $150",
-    },
-]
+import { sortingOptionsMaterials, sortingOptionsPrice, sortingOptionsType } from "@/lib/data"
 
 export default function Sorting() {
     return (
@@ -56,15 +14,15 @@ export default function Sorting() {
 
             <div className="flex flex-col gap-3 lg:border-r sm:px-10 px-20">
                 <h1 className="font-medium">Made by</h1>
-                <SelectMenu data={sortingOptionsMaterials}></SelectMenu>
+                <SelectMenu data={sortingOptionsMaterials} className="sortButton w-[300px]"></SelectMenu>
             </div>
             <div className="flex flex-col gap-3 lg:border-r sm:px-10 px-20">
                 <h1 className="font-medium">Select type</h1>
-                <SelectMenu data={sortingOptionsType}></SelectMenu>
+                <SelectMenu data={sortingOptionsType} className="sortButton w-[300px]"></SelectMenu>
             </div>
             <div className="flex flex-col gap-3 lg:border-r sm:px-10 px-20">
                 <h1 className="font-medium">Price range</h1>
-                <SelectMenu data={sortingOptionsPrice}></SelectMenu>
+                <SelectMenu data={sortingOptionsPrice} className="sortButton w-[300px]"></SelectMenu>
             </div>
             <div className="flex items-center justify-center w-full sm:px-10">
                 <Link href="/" className={

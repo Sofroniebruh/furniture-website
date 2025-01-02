@@ -16,6 +16,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import clsx from "clsx"
 
 type dataType = {
     value: string,
@@ -23,9 +24,11 @@ type dataType = {
 }
 
 export default function SelectMenu({
-    data
+    data,
+    className
 }: {
-    data: dataType[]
+    data: dataType[],
+    className?: string,
 }) {
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
@@ -37,7 +40,7 @@ export default function SelectMenu({
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="xl:min-w-[200px] w-[300px] flex sortButton justify-between text-lg"
+                    className={cn("xl:min-w-[200px] flex justify-between text-lg", className)}
                 >
                     {value
                         ? data.find((item) => item.value === value)?.label

@@ -64,3 +64,67 @@ export const reviews = [
         review: "This is my second time buying from here, and once again, I'm impressed. The furniture is beautiful, and the attention to detail is evident. The chairs I got are both sturdy and lightweight, perfect for everyday use."
     },
 ]
+
+export const sortingOptionsMaterials = [
+    {
+        value: "wood",
+        label: "Wood",
+    },
+    {
+        value: "metal",
+        label: "Metal",
+    },
+    {
+        value: "mixed",
+        label: "Mixed",
+    },
+]
+
+export const sortingOptionsType = [
+    {
+        value: "sofa",
+        label: "Sofa",
+    },
+    {
+        value: "chair",
+        label: "Chair",
+    },
+    {
+        value: "table",
+        label: "Table",
+    },
+]
+
+export const sortingOptionsColor = [
+    {
+        value: "black",
+        label: "Black",
+    },
+    {
+        value: "white",
+        label: "White",
+    },
+    {
+        value: "green",
+        label: "Green",
+    },
+    {
+        value: "brown",
+        label: "Brown",
+    },
+]
+
+export const sortingOptionsPrice = [
+    {
+        value: "0-70",
+        label: "$0 - $70",
+    },
+    {
+        value: "70-150",
+        label: "$70 - $150",
+    },
+    {
+        value: "150+",
+        label: "> $150",
+    },
+]
