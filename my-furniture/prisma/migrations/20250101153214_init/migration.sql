@@ -18,7 +18,7 @@ CREATE TABLE "Product" (
     "id" SERIAL NOT NULL,
     "itemName" TEXT NOT NULL,
     "itemDescription" TEXT NOT NULL,
-    "itemColor" "Color" NOT NULL,
+    "itemColor" "Color"[] NOT NULL,
     "price" INTEGER NOT NULL,
     "event" "Event" NOT NULL,
     "itemPicture" TEXT NOT NULL,

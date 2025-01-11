@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/dashboard/items"
-  ],
+, "src/app/api/products/route.js"  ],
   "exclude": ["node_modules"]
 }

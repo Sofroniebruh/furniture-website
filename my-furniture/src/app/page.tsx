@@ -6,7 +6,6 @@ import Review from "@/components/review-component";
 import Sorting from "@/components/sorting-component";
 import { buttonVariants } from "@/components/ui/button";
 import { itemsData, reviews } from "@/lib/data";
-import { cn } from "@/lib/utils";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 

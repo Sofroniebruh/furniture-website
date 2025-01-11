@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar-component";
 import Footer from "@/components/footer-component";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "@/contexts/cartContext";
+import Children from "@/components/children";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode,
 }>) {
   return (
     <html lang="en">
@@ -33,10 +34,7 @@ export default function RootLayout({
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased my-6 sm:mx-7 mx-4 flex flex-col`}
           >
-            <Navbar></Navbar>
-            <Toaster />
-            {children}
-            <Footer></Footer>
+            <Children>{children}</Children>
           </body>
         </CartProvider>
       </>

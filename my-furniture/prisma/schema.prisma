@@ -19,17 +19,30 @@ model User {
   purchaseHistory  Item[] @relation("PurchaseHistory")
   wishList         Item[] @relation("WishList")
   email String
+  reviewId Int
+  reviews Review[]
 }
 
 model Product {
   id Int @id @default(autoincrement())
   itemName String
   itemDescription String
-  itemColor Color
-  price Int
-  event Event
-  itemPicture String
+  itemColor String[]
+  price Float
+  event String?
+  itemPicture String[]
   items Item[]
+  reviews Review[]
+}
+
+model Review {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  text String
+  grade Int
+  productId Int
+  product Product @relation(fields: [productId], references: [id]) 
 }
 
 model Item {
@@ -47,8 +60,7 @@ enum Event {
   BESTPRICE
   FORYOU
   MOSTPOPULAR
+  NONE
 }
 
-enum Color {
-  BLACK
-}
+
