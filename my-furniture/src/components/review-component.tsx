@@ -1,11 +1,6 @@
 import { cn } from "@/lib/utils"
+import { reviewData } from "@/types/types"
 import { StarIcon, User2Icon } from "lucide-react"
-
-type reviewData = {
-    username: string,
-    review: string,
-    rating: number,
-}
 
 export default function Review({ reviewData, className }: { reviewData: reviewData, className?: string }) {
     return (

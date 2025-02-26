@@ -27,7 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/dashboard/items"
-, "src/app/api/products/route.js"  ],
+    "src/app/dashboard/items",
+    "src/app/api/products/route.js",
+    "src/components/skeleton.jsx"
+  ],
   "exclude": ["node_modules"]
 }

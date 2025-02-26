@@ -9,7 +9,7 @@ export default function Common({
     className?: string
 }) {
     return (
-        <div className={cn("w-full h-full px-5", className)}>
+        <div className={cn("w-full h-full px-4", className)}>
             {children}
         </div>
     )

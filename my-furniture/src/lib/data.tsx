@@ -1,9 +1,12 @@
+export const ITEMS_PER_PAGE = 12;
+export const domain = "http://localhost:3000"
+
 export const itemsData = [
     {
         id: 1,
-        name: "Cool lamp 1",
+        itemName: "Cool lamp 1",
         price: 40,
-        imgSrc: "/furniture1.webp",
+        itemPicture: "/furniture1.webp",
         amountOfColors: 3,
     },
     {

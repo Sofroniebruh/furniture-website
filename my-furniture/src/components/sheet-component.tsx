@@ -12,7 +12,6 @@ import {
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -24,42 +23,35 @@ import { Button, buttonVariants } from "./ui/button";
 import { useCart } from "@/contexts/cartContext";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import NewItem from "./new-item-component";
 import { toast } from "sonner";
-
-type data = {
-    name: string,
-    icon: React.ReactNode,
-    link: string,
-}
-
-type burgerData = {
-    link: string,
-    title: string,
-}
+import { useDispatch } from "react-redux";
+import { setItemUpdated } from "@/lib/redux/slices/itemSlice";
+import { useClerk } from "@clerk/nextjs";
+import { burgerData, data } from "@/types/types";
 
 export default function CommonSheet({
     data,
     burgerData,
     type,
     title,
+    isAdmin,
     user,
     side }: {
         data?: data[],
         burgerData?: burgerData[],
         type: string,
         title: string,
-        user?: KindeUser,
+        isAdmin?: boolean
+        user?: string | null,
         side: "top" | "bottom" | "left" | "right" | null | undefined,
     }) {
-
     const [isOpen, setIsOpen] = useState<boolean>();
     const { cart, removeFromCart, clearCart } = useCart();
-    const isAdmin = user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL
     const pathName = usePathname();
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>();
+    const dispatch = useDispatch();
+    const { signOut } = useClerk();
 
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -98,17 +90,26 @@ export default function CommonSheet({
                 {
                     type === "dashboard" ? (
                         <>
-                            {data != undefined ? data.map((dataItem, index) => (
-                                <Link key={index} href={dataItem.link} className="w-full flex gap-2 py-3" onClick={() => setIsOpen(!isOpen)}>
-                                    {dataItem.icon}
-                                    <p>{dataItem.name}</p>
-                                </Link>
-                            )) : null}
+                            {data && data.length > 0 ? (
+                                <div className="w-full">
+                                    {data.map((dataItem, index) => (
+                                        <Link
+                                            key={index}
+                                            href={dataItem.link}
+                                            className="w-full flex gap-2 my-3 first:mt-6 last:mb-6"
+                                            onClick={() => setIsOpen(!isOpen)}
+                                        >
+                                            {dataItem.icon}
+                                            <p>{dataItem.name}</p>
+                                        </Link>
+                                    ))}
+                                </div>
+                            ) : null}
                             <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
                                 <DialogTrigger onClick={() => setDialogIsOpen(!dialogIsOpen)} className={buttonVariants({
                                     size: "lg",
                                     variant: "outline",
-                                    className: "w-full"
+                                    className: "w-full max-w-[230px]"
                                 })}>Add new Item <PlusIcon></PlusIcon>
                                 </DialogTrigger>
                                 <DialogContent className="h-[800px] max-w-[500px] 
@@ -121,20 +122,20 @@ export default function CommonSheet({
                                         description: string,
                                         colors: string[],
                                         price: number,
-                                        event: string | undefined,
-                                        imageUrl: string
+                                        event: string | null,
+                                        imageUrls: string[],
+                                        stock: number,
                                     ) => {
-                                        console.log(JSON.stringify({ name, description, colors, price, event, imageUrl }));
-
                                         const response = await fetch("/api/products", {
                                             method: "POST",
                                             headers: { "Content-Type": "application/json" },
-                                            body: JSON.stringify({ name, description, colors, price, event, imageUrl }),
+                                            body: JSON.stringify({ name, description, colors, price, event, imageUrls, stock }),
                                         });
 
                                         if (response.ok) {
                                             setDialogIsOpen(false)
                                             setIsOpen(false)
+                                            dispatch(setItemUpdated())
                                             toast("Item created successfully");
                                         } else {
                                             toast("Failed to create item.");
@@ -186,14 +187,12 @@ export default function CommonSheet({
                             <div className="flex items-center justify-center flex-col gap-12 py-12">
                                 <h1 className="text-5xl">Welcome!</h1>
                                 <div className="flex items-center gap-4 w-full sm:w-fit justify-center">
-                                    {isAdmin ? (
+                                    {user ? isAdmin ? (
                                         <div className="flex sm:flex-row flex-col gap-4 items-center sm:justify-center">
-                                            <LogoutLink className="w-full">
-                                                <button className={buttonVariants({
-                                                    size: "lg",
-                                                    className: "w-[200px] sm:w-auto"
-                                                })}>Log Out</button>
-                                            </LogoutLink>
+                                            <button onClick={() => signOut()} className={buttonVariants({
+                                                size: "lg",
+                                                className: "w-full sm:w-auto"
+                                            })}>Log Out</button>
                                             {pathName === "/dashboard" || pathName.startsWith("/dashboard") ?
                                                 (<Link href={"/"} onClick={() => setIsOpen(!open)}>
                                                     <button className={buttonVariants({
@@ -209,22 +208,21 @@ export default function CommonSheet({
                                                     </Link>
                                                 )}
                                         </div>
-                                    ) : user != null ? (
-                                        <Link href={"/api/auth/logout"}>
-                                            <button className={buttonVariants({
-                                                size: "lg",
-                                                className: "w-full sm:w-auto"
-                                            })}>Log Out</button>
-                                        </Link>) :
+                                    ) : (
+                                        <button onClick={() => signOut()} className={buttonVariants({
+                                            size: "lg",
+                                            className: "w-full sm:w-auto"
+                                        })}>Log Out</button>
+                                    ) :
                                         (
                                             <div className="flex sm:flex-row flex-col gap-4 items-center sm:justify-center">
-                                                <Link href={"/api/auth/register"}>
+                                                <Link href={"/sign-up"}>
                                                     <button className={buttonVariants({
                                                         size: "lg",
                                                         className: "w-[200px] sm:w-auto"
                                                     })}>Sign Up</button>
                                                 </Link>
-                                                <Link href={"/api/auth/login"}><button className={buttonVariants({
+                                                <Link href={"/sign-in"}><button className={buttonVariants({
                                                     size: "lg",
                                                     variant: "outline",
                                                     className: "w-[200px] sm:w-auto"
@@ -237,7 +235,7 @@ export default function CommonSheet({
                     ) : type === "mainLinks" ?
                         <div className="flex flex-col">
                             {burgerData !== undefined ? burgerData.map((dataItem, index) => (
-                                <Link key={index} className="py-3" onClick={() => setIsOpen(!isOpen)} href={dataItem.link}>{dataItem.title}</Link>
+                                <Link key={index} className="py-3 first:pt-6 pb-3" onClick={() => setIsOpen(!isOpen)} href={dataItem.link}>{dataItem.title}</Link>
                             )) : null}
                         </div>
                         : null

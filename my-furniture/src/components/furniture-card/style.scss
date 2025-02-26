@@ -1,0 +1,16 @@
+@media (max-width: 768px) {
+  .furniture-card-element-1 {
+    width: 240px;
+  }
+}
+
+@media (max-width: 500px) {
+  .furniture-card-element-1 {
+    width: 170px;
+  }
+
+  .furniture-card-element-2 {
+    width: 140px;
+    height: 140px;
+  }
+}

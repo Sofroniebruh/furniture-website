@@ -1,15 +1,23 @@
 "use client"
 
 import Common from "@/components/common-properties";
-import FurnitureCard from "@/components/furniture-card";
+import FurnitureCard from "@/components/furniture-card/furniture-card";
 import Review from "@/components/review-component";
+import Skeleton from "@/components/skeleton";
 import Sorting from "@/components/sorting-component";
 import { buttonVariants } from "@/components/ui/button";
 import { itemsData, reviews } from "@/lib/data";
+import { Product } from "@prisma/client";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [items, setItems] = useState<Product[]>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  console.log("Items: " + items)
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -17,8 +25,28 @@ export default function Home() {
     });
   };
 
+  const fetchItemsShowcase = async () => {
+    console.log("Hello")
+    setIsLoading(true);
+    const res = await fetch(`/api/limited-products`, {
+      method: "GET"
+    })
+    console.log("Hello2")
+    if (res.ok) {
+      console.log("Hello3")
+      const data = await res.json();
+      console.log("Data: " + data)
+      setItems(data);
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchItemsShowcase();
+  }, [])
+
   return (
-    <>
+    <div className="flex flex-col gap-12">
       <section className="mt-6">
         <Common>
           <div className="relative w-full sm:h-[600px] h-[400px] overflow-hidden rounded-2xl flex justify-center items-center">
@@ -27,12 +55,13 @@ export default function Home() {
           </div>
         </Common>
       </section>
-      <section className="my-24">
-        <Common className="gap-24 flex flex-col">
+      <section className="">
+        <Common className="gap-12 flex flex-col">
           <div className="gap-12 flex flex-col">
             <h1 className="sm:text-4xl text-3xl text-gray-800">Find <span className="exactly">exactly</span> what you want</h1>
             <Sorting></Sorting>
           </div>
+          {/* {items && !isLoading && */}
           <div className="flex-col flex gap-12">
             <div className="flex justify-between items-center">
               <h1 className="sm:text-4xl text-2xl text-gray-800">Take a look</h1>
@@ -42,12 +71,16 @@ export default function Home() {
                 className: "text-lg"
               })}>View more <ArrowRightIcon></ArrowRightIcon></Link>
             </div>
-            <div className="flex flex-wrap justify-around gap-y-6 lg:gap-6 w-full">
-              {itemsData.map((item) => (
-                <FurnitureCard itemsData={item} key={item.id}></FurnitureCard>
+            <div className="flex flex-wrap justify-around gap-y-12 lg:gap-12 w-full">
+              {isLoading &&
+                [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+              }
+              {items && items.map((item, index) => (
+                <FurnitureCard itemsData={item} key={index}></FurnitureCard>
               ))}
             </div>
           </div>
+          {/* } */}
           <div className="flex flex-col gap-12">
             <h1 className="sm:text-4xl text-3xl xl:hidden block">Exceptional quality.</h1>
             <div className="flex flex-col-reverse xl:flex-row w-full gap-6">
@@ -76,13 +109,13 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="flex justify-center items-start" onClick={scrollToTop}>
+          <div className="flex justify-center items-start mb-6" onClick={scrollToTop}>
             <button className={buttonVariants({
               size: "lg"
             })}>Back to the top</button>
           </div>
         </Common>
       </section >
-    </>
+    </div>
   )
 }

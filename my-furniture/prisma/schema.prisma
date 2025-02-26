@@ -33,6 +33,7 @@ model Product {
   itemPicture String[]
   items Item[]
   reviews Review[]
+  stock Int
 }
 
 model Review {

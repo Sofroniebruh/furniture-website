@@ -1,15 +1,8 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { domain } from "@/lib/data";
+import { getSession } from "@auth0/nextjs-auth0";
 import { redirect } from "next/navigation";
 
 export default async function Orders() {
-    const { getUser } = getKindeServerSession()
-    const user = await getUser()
-    const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-
-    if (!user || user.email !== ADMIN_EMAIL) {
-        return redirect("/")
-    }
-
     return (
         <p>Orders page</p>
     )

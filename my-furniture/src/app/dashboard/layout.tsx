@@ -1,4 +1,5 @@
 import DashboardSection from "@/components/dashboard-component";
+import Footer from "@/components/footer-component";
 import { Toaster } from "sonner";
 
 export default function DashboardLayout({
@@ -9,7 +10,7 @@ export default function DashboardLayout({
     return (
         <>
             <Toaster />
-            <div className="flex gap-6 py-6">
+            <div className="flex gap-6">
                 <DashboardSection>{children}</DashboardSection>
             </div>
         </>

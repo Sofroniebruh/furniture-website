@@ -65,6 +65,14 @@
   }
 }
 
+nextjs-portal {
+  display: none;
+}
+
+#clerk-components {
+  display: none;
+}
+
 @media (max-width: 400px) {
   .hero-text {
     font-size: 3rem;
@@ -164,5 +172,16 @@
   }
   .about-heder {
     font-size: 2.25rem;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }

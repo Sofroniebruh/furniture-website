@@ -1,20 +1,21 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
-import Navbar from "./navbar-component"
 import { Toaster } from "sonner"
-import Footer from "./footer-component"
-import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types"
+import Navbar from "@/components/navbar-component";
+import ReduxProvider from "./providers/reduxProvider";
+import { auth } from "@clerk/nextjs/server";
+import { checkRole } from "@/utils/roles";
 
 export default async function Children({ children }: { children: React.ReactNode }) {
-    const { getUser } = getKindeServerSession()
-    const user = await getUser()
+    const { userId } = await auth()
+    const isAdmin = await checkRole("admin")
 
     return (
-        <>
-            <Navbar user={user as KindeUser<void>}></Navbar>
-            <Toaster />
-            {children}
-            <Footer></Footer>
-        </>
+        <ReduxProvider>
+            <div className="flex-grow flex flex-col">
+                <Navbar userId={userId} isAdmin={isAdmin}></Navbar>
+                <Toaster />
+                {children}
+            </div>
+        </ReduxProvider>
     )
 
 }

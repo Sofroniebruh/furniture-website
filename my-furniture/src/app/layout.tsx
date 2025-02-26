@@ -1,43 +1,35 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar-component";
 import Footer from "@/components/footer-component";
-import { Toaster } from "@/components/ui/sonner";
-import { CartProvider } from "@/contexts/cartContext";
 import Children from "@/components/children";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { ClerkProvider } from '@clerk/nextjs'
+import { CartProvider } from "@/contexts/cartContext";
 
 export const metadata: Metadata = {
   title: "FUTU",
   description: "Furniture for all kind of taste",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode,
 }>) {
   return (
+
     <html lang="en">
       <>
-        <CartProvider>
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased my-6 sm:mx-7 mx-4 flex flex-col`}
-          >
-            <Children>{children}</Children>
-          </body>
-        </CartProvider>
+        <ClerkProvider>
+          <CartProvider>
+            <body
+              className={`min-h-screen antialiased sm:mx-7 flex flex-col justify-between`}
+            >
+              <Children>{children}</Children>
+              <Footer></Footer>
+            </body>
+          </CartProvider>
+        </ClerkProvider>
       </>
-    </html>
+    </html >
   );
 }

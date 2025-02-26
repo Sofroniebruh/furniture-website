@@ -1,12 +1,10 @@
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
-import { small } from "framer-motion/client";
 import Common from "./common-properties";
 
 export default function Footer() {
     return (
         <Common>
-            <footer className="rounded-2xl bg-gray-100/75 p-4 px-8 flex justify-around items-center flex-col sm:flex-row">
+            <footer className="rounded-2xl bg-gray-100/75 p-4 my-6 px-8 flex justify-around items-center flex-col sm:flex-row">
                 <ul className="flex flex-col items-center sm:items-start">
                     <li className="my-2"><Link href="#" className="font-medium text-sm">Privacy policy</Link></li>
                     <li className="my-2"><Link href="#" className="font-medium text-sm">Terms and conditions</Link></li>

@@ -1,16 +1,10 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { redirect } from "next/navigation";
+import ItemComponent from "@/components/items-page-component";
 
-export default async function Items() {
-    const { getUser } = getKindeServerSession()
-    const user = await getUser()
-    const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-
-    if (!user || user.email !== ADMIN_EMAIL) {
-        return redirect("/")
-    }
+export default async function Items({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+    const { page, ...queryParams } = await searchParams;
+    const p = page ? parseInt(page) : 1
 
     return (
-        <p>Items page</p>
+        <ItemComponent page={p}></ItemComponent>
     )
 }

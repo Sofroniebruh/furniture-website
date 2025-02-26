@@ -16,12 +16,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import clsx from "clsx"
-
-type dataType = {
-    value: string,
-    label: string
-}
+import { dataType } from "@/types/types"
 
 export default function SelectMenu({
     data,

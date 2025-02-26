@@ -8,13 +8,14 @@ import { buttonVariants } from "./ui/button";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
 import NewItem from "./new-item-component";
 import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { setItemUpdated } from "../lib/redux/slices/itemSlice";
 
 export const sections = [
     {
@@ -41,10 +42,11 @@ export const sections = [
 
 export default function DashboardSection({ children }: { children: React.ReactNode }) {
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>();
+    const dispatch = useDispatch();
 
     return (
-        <Common className="flex my-6 gap-6">
-            <div className="w-1/5 flex-col rounded-2xl border px-4 py-8 xl:p-8 lg:block hidden gap-4">
+        <Common className="flex gap-6">
+            <div className="w-1/5 flex-col rounded-2xl border px-4 py-8 xl:p-8 lg:block hidden gap-4 h-fit">
                 <div className="sticky top-7 h-fit">
                     {sections.map((section, index) => (
                         <Link key={index} href={section.link} className="w-full flex gap-2 first:pb-3 first:pt-0 py-3">
@@ -69,20 +71,20 @@ export default function DashboardSection({ children }: { children: React.ReactNo
                                 description: string,
                                 colors: string[],
                                 price: number,
-                                event: string | undefined,
-                                imageUrl: string
+                                event: string | null,
+                                imageUrls: string[],
+                                stock: number,
                             ) => {
-                                console.log(JSON.stringify({ name, description, colors, price, event, imageUrl }));
-
                                 const response = await fetch("/api/products", {
                                     method: "POST",
                                     headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify({ name, description, colors, price, event, imageUrl }),
+                                    body: JSON.stringify({ name, description, colors, price, event, imageUrls, stock }),
                                 });
 
                                 if (response.ok) {
-                                    setDialogIsOpen(false)
+                                    setDialogIsOpen(false);
                                     toast("Item created successfully");
+                                    dispatch(setItemUpdated());
                                 } else {
                                     toast("Failed to create item.");
                                 }

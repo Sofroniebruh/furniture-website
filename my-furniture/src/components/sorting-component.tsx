@@ -3,7 +3,7 @@
 import Link from "next/link"
 import SelectMenu from "./select-menu-component"
 import { buttonVariants } from "./ui/button"
-import { Search, SearchIcon } from "lucide-react"
+import { SearchIcon } from "lucide-react"
 import { sortingOptionsMaterials, sortingOptionsPrice, sortingOptionsType } from "@/lib/data"
 
 export default function Sorting() {
