@@ -44,7 +44,7 @@ export default function PaginationComponent(
                     {Array.from({ length: Math.ceil(totalPages / ITEMS_PER_PAGE) }, (_, index) => {
                         return (
                             <PaginationItem key={index} className="cursor-pointer">
-                                <PaginationLink onClick={() => changePage(index + 1)}>{index + 1}</PaginationLink>
+                                <PaginationLink isActive={currentPage == index + 1} onClick={() => changePage(index + 1)}>{index + 1}</PaginationLink>
                             </PaginationItem>
                         )
                     })}

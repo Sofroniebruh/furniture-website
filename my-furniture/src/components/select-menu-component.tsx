@@ -35,7 +35,7 @@ export default function SelectMenu({
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className={cn("xl:min-w-[200px] flex justify-between text-lg", className)}
+                    className={cn("flex justify-between text-lg", className)}
                 >
                     {value
                         ? data.find((item) => item.value === value)?.label

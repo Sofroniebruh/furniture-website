@@ -3,7 +3,7 @@
 import Common from "@/components/common-properties";
 import FurnitureCard from "@/components/furniture-card/furniture-card";
 import Review from "@/components/review-component";
-import Skeleton from "@/components/skeleton";
+import Skeleton from "@/components/skeletons/skeleton";
 import Sorting from "@/components/sorting-component";
 import { buttonVariants } from "@/components/ui/button";
 import { itemsData, reviews } from "@/lib/data";

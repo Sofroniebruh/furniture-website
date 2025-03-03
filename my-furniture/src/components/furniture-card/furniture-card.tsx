@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/hover-card"
 import "./style.scss"
 import { buttonVariants } from "../ui/button"
+import { useState } from "react"
+import ImageSkeleton from "../skeletons/image-skeleton"
 
 export default function FurnitureCard({
     itemsData,
@@ -21,6 +23,12 @@ export default function FurnitureCard({
     type?: string,
     event?: string,
 }) {
+    const [isImageLoading, setIsImageLoading] = useState(true);
+
+    const handleImageLoad = () => {
+        setIsImageLoading(false)
+    }
+
     return (
         <>
             <div className="flex md:hidden justify-between border-b pb-6 items-center">
@@ -86,7 +94,11 @@ export default function FurnitureCard({
                     </div>
                 </div>
                 <div className="w-[170px] h-[170px] bg-white rounded-md overflow-hidden flex justify-center furniture-card-element-2 items-center">
-                    <Image src={itemsData.itemPicture[0]} width={150} height={170} alt="item image" className="w-full h-full object-cover" />
+                    {isImageLoading && <ImageSkeleton />}
+                    <Image onLoad={() => handleImageLoad} className={cn(
+                        isImageLoading ? "opacity-0" : "opacity-100",
+                        "transition-opacity duration-300 cursor-pointer object-cover w-full h-full"
+                    )} src={itemsData.itemPicture[0]} width={150} height={170} alt="item image" />
                 </div>
             </div>
             <div className={cn("md:flex hidden rounded-2xl", type == "shop" ? "w-full flex-row md:flex-col p-4 justify-between gap-8" :
